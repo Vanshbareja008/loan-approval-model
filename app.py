@@ -3,14 +3,14 @@ import joblib
 import numpy as np
 import gradio as gr
 
-# =====================================================
-# Load Trained Model
-# =====================================================
+# ==========================================================
+# Load the trained model
+# ==========================================================
 model = joblib.load("loan_app_model.pkl")
 
-# =====================================================
+# ==========================================================
 # Prediction Function
-# =====================================================
+# ==========================================================
 def predict_loan(
     no_of_dependents,
     income_annum,
@@ -25,7 +25,7 @@ def predict_loan(
     bank_asset_value
 ):
 
-    # Encode categorical inputs
+    # Encode categorical values
     education = 1 if education == "Graduate" else 0
     self_employed = 1 if self_employed == "Yes" else 0
 
@@ -55,39 +55,36 @@ def predict_loan(
     else:
         result = "❌ Loan Rejected"
 
-    return f"""
-{result}
+    return f"{result}\n\nConfidence: {confidence:.2f}%"
 
-Confidence : {confidence:.2f}%
-"""
-
-# =====================================================
+# ==========================================================
 # Gradio Interface
-# =====================================================
+# ==========================================================
+
 demo = gr.Interface(
     fn=predict_loan,
 
     inputs=[
-        gr.Number(label="👨 Number of Dependents"),
-        gr.Number(label="💰 Annual Income (₹)"),
+        gr.Number(label="Number of Dependents"),
+        gr.Number(label="Annual Income (₹)"),
 
         gr.Dropdown(
-            choices=["Graduate", "Not Graduate"],
-            label="🎓 Education"
+            ["Graduate", "Not Graduate"],
+            label="Education"
         ),
 
         gr.Dropdown(
-            choices=["Yes", "No"],
-            label="💼 Self Employed"
+            ["Yes", "No"],
+            label="Self Employed"
         ),
 
-        gr.Number(label="🏦 Loan Amount (₹)"),
-        gr.Number(label="📅 Loan Term (Years)"),
-        gr.Number(label="📈 CIBIL Score"),
-        gr.Number(label="🏠 Residential Assets Value (₹)"),
-        gr.Number(label="🏢 Commercial Assets Value (₹)"),
-        gr.Number(label="💎 Luxury Assets Value (₹)"),
-        gr.Number(label="🏛️ Bank Assets Value (₹)")
+        gr.Number(label="Loan Amount (₹)"),
+        gr.Number(label="Loan Term (Years)"),
+        gr.Number(label="CIBIL Score"),
+        gr.Number(label="Residential Assets Value (₹)"),
+        gr.Number(label="Commercial Assets Value (₹)"),
+        gr.Number(label="Luxury Assets Value (₹)"),
+        gr.Number(label="Bank Assets Value (₹)")
     ],
 
     outputs=gr.Textbox(
@@ -100,25 +97,25 @@ demo = gr.Interface(
     description="""
 # 🏦 Loan Approval Prediction System
 
-### 👨‍💻 Developed by
-**Vansh**
-
-**Roll No.: 241047**
+### 👨‍💻 Developed by **Vansh**
+### 🎓 Roll No.: **241047**
 
 ---
 
 ## 📌 Instructions
 
-- Enter all applicant details carefully.
-- Select the correct **Education** and **Self Employed** status.
-- Click **Submit** to check the loan approval prediction.
+✔ Enter all details carefully.
+
+✔ Select the correct **Education** and **Self Employed** status.
+
+✔ Click **Submit** to predict loan approval.
 
 ---
 
 ## 📝 Example Input
 
-| Parameter | Example |
-|-----------|---------|
+| Field | Example |
+|-------|---------|
 | Number of Dependents | 2 |
 | Annual Income | 6500000 |
 | Education | Graduate |
@@ -133,27 +130,25 @@ demo = gr.Interface(
 
 ---
 
-## 📊 Output
+### 📊 Output
 
-✅ **Loan Approved**
+✅ Loan Approved
 
 or
 
-❌ **Loan Rejected**
+❌ Loan Rejected
 
 along with the prediction confidence.
-""",
-
-    theme=gr.themes.Soft(),
-
-    allow_flagging="never"
+"""
 )
 
-# =====================================================
+# ==========================================================
 # Launch App
-# =====================================================
+# ==========================================================
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 7860))
+
     demo.launch(
         server_name="0.0.0.0",
         server_port=port
