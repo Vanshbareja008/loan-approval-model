@@ -75,29 +75,49 @@ demo = gr.Interface(
         gr.Number(label="Bank Assets Value (₹)")
     ],
     outputs=gr.Textbox(label="Prediction"),
-    title="🏦 Loan Approval Prediction System",
-    description="""
-Developed by Vansh
-Roll No. 241047
+    title="🏦 Loan Approval Prediction System"
 
-Example Values:
-Dependents = 2
-Annual Income = 6500000
-Education = Graduate
-Self Employed = No
-Loan Amount = 2500000
-Loan Term = 12
-CIBIL Score = 780
-Residential Assets = 5000000
-Commercial Assets = 1500000
-Luxury Assets = 1000000
-Bank Assets = 900000
+description="""
+# 🏦 Loan Approval Prediction System
+
+### 👨‍💻 Developed by
+**Vansh**
+
+**Roll No.: 241047**
+
+---
+
+## 📌 Instructions
+- Enter all values correctly.
+- Select the appropriate Education and Self Employed status.
+- Click **Submit** to predict whether the loan is likely to be approved.
+
+---
+
+## 📝 Example Input
+
+| Parameter | Example Value |
+|-----------|--------------:|
+| Number of Dependents | **2** |
+| Annual Income (₹) | **6500000** |
+| Education | **Graduate** |
+| Self Employed | **No** |
+| Loan Amount (₹) | **2500000** |
+| Loan Term (Years) | **12** |
+| CIBIL Score | **780** |
+| Residential Assets (₹) | **5000000** |
+| Commercial Assets (₹) | **1500000** |
+| Luxury Assets (₹) | **1000000** |
+| Bank Assets (₹) | **900000** |
+
+---
+
+### 📊 Prediction Output
+✅ Loan Approved
+
+or
+
+❌ Loan Rejected
+
+along with the model confidence.
 """
-)
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 7860))
-    demo.launch(
-        server_name="0.0.0.0",
-        server_port=port
-    )
