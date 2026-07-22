@@ -6,7 +6,7 @@ import gradio as gr
 # ==========================================================
 # Load the trained model
 # ==========================================================
-model = joblib.load("loan_app_model.pkl")
+model = joblib.load("loan_pred_model.pkl")
 
 # ==========================================================
 # Prediction Function
@@ -50,7 +50,7 @@ def predict_loan(
     else:
         confidence = 100
 
-    if prediction == 0:
+    if prediction == 1:
         result = "✅ Loan Approved"
     else:
         result = "❌ Loan Rejected"
