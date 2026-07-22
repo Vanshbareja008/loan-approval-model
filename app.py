@@ -50,7 +50,7 @@ def predict_loan(
     else:
         confidence = 100
 
-    if prediction == 1:
+    if prediction == 0:
         result = "✅ Loan Approved"
     else:
         result = "❌ Loan Rejected"
